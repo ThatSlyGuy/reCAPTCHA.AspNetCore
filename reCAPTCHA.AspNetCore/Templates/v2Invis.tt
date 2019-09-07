@@ -9,15 +9,17 @@
 				'callback' : _<#= Model.Method #>_
 			});
 
-			document.getElementById('<#= Model.Id #>').onclick = function(e) {
-				e.preventDefault();
-				grecaptcha.execute();
-			};
+			$('form').submit(function(e) {
+				if (!grecaptcha.getResponse()) {
+					e.preventDefault();
+					grecaptcha.execute();
+				}
+			});
 		}
 	}
 
 	function _<#= Model.Method #>_(token) {
-		document.getElementById('<#= Model.Id #>').form.submit();
+		$('form').submit();
 	}
 </script>
 <script src="https://www.google.com/recaptcha/api.js?onload=_<#= Model.Method #>&render=explicit&hl=<#= Model.Language #>" async defer></script>
